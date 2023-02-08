@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de prestamos{% endblock %}
+
+{% block body %}
+    <h1>Prestamo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha_inicio</th>
+                <th>Fecha_fin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prestamo in prestamos %}
+            <tr>
+                <td>{{ prestamo.id }}</td>
+                <td>{{ prestamo.fechaInicio ? prestamo.fechaInicio|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ prestamo.fechaFin ? prestamo.fechaFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_prestamo_show', {'id': prestamo.id}) }}">show</a>
+                    <a href="{{ path('app_prestamo_edit', {'id': prestamo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prestamo_new') }}">Create new</a>
+{% endblock %}
